@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NEXUS · 数字宇宙观测站</title>
+  <meta name="description" content="NEXUS — 沉浸式数字宇宙体验。星图导航、信号实验室与极光界面。" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800&family=Noto+Sans+SC:wght@400;500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <noscript><style>.boot{display:none}</style></noscript>
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <canvas id="starfield" aria-hidden="true"></canvas>
+  <canvas id="aurora" aria-hidden="true"></canvas>
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
+  <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+
+  <div class="boot" id="boot">
+    <div class="boot__inner">
+      <p class="boot__brand">NEXUS OS <span>v4.0.9</span></p>
+      <div class="boot__log" id="bootLog"></div>
+      <div class="boot__bar">
+        <div class="boot__fill" id="bootFill"></div>
+      </div>
+      <p class="boot__hint">正在校准观测阵列…</p>
+    </div>
+  </div>
+
+  <header class="nav" id="nav">
+    <a class="nav__logo" href="#hero">
+      <span class="nav__mark"></span>
+      NEXUS
+    </a>
+    <nav class="nav__links">
+      <a href="#orbit">星图</a>
+      <a href="#features">能力</a>
+      <a href="#lab">实验室</a>
+      <a href="#signal">接入</a>
+    </nav>
+    <button class="nav__cta magnetic" type="button" data-scroll="#signal">申请航线</button>
+  </header>
+
+  <aside class="hud" aria-hidden="true">
+    <div class="hud__item">LAT <span id="hudLat">31.2304</span></div>
+    <div class="hud__item">LON <span id="hudLon">121.4737</span></div>
+    <div class="hud__item">UTC <span id="hudTime">00:00:00</span></div>
+    <div class="hud__item">SIG <span id="hudSig">98.4%</span></div>
+  </aside>
+
+  <main>
+    <section class="hero" id="hero">
+      <div class="hero__grid"></div>
+      <p class="eyebrow reveal">DEEP SPACE INTERFACE · 2026</p>
+      <h1 class="hero__title">
+        <span class="glitch" data-text="NEXUS">NEXUS</span>
+      </h1>
+      <p class="hero__sub reveal">下一代沉浸式数字宇宙观测站</p>
+      <p class="hero__desc reveal">
+        在极光与星尘之间建立你的专属航线。实时星图、频谱实验室与量子 HUD，把遥远信号变成可触摸的体验。
+      </p>
+      <div class="hero__actions reveal">
+        <button class="btn btn--primary magnetic" type="button" data-scroll="#orbit">启动航线</button>
+        <button class="btn btn--ghost magnetic" type="button" data-scroll="#lab">打开实验室</button>
+      </div>
+      <div class="hero__stats reveal">
+        <div><strong id="statStars">0</strong><span>活跃星体</span></div>
+        <div><strong id="statNodes">0</strong><span>观测节点</span></div>
+        <div><strong id="statMs">0</strong><span>延迟 ms</span></div>
+      </div>
+      <div class="scroll-hint">
+        <span></span>
+        向下探索
+      </div>
+    </section>
+
+    <section class="orbit-sec" id="orbit">
+      <div class="section-head">
+        <p class="eyebrow">STAR MAP</p>
+        <h2>可交互星图</h2>
+        <p>拖动旋转轨道，点击星体读取档案。每个世界都有自己的频谱与任务。</p>
+      </div>
+      <div class="orbit-layout">
+        <div class="orbit-stage" id="orbitStage">
+          <div class="sun" id="sun" data-id="core"></div>
+          <div class="ring ring--1">
+            <button class="planet p-aether" type="button" data-id="aether" aria-label="以太星"></button>
+          </div>
+          <div class="ring ring--2">
+            <button class="planet p-ion" type="button" data-id="ion" aria-label="离子海"></button>
+          </div>
+          <div class="ring ring--3">
+            <button class="planet p-void" type="button" data-id="void" aria-label="虚空环"></button>
+          </div>
+          <div class="ring ring--4">
+            <button class="planet p-prism" type="button" data-id="prism" aria-label="棱镜城"></button>
+          </div>
+        </div>
+        <article class="dossier glass" id="dossier">
+          <p class="dossier__code" id="dossierCode">NX-00 CORE</p>
+          <h3 id="dossierTitle">核心恒星 · 源</h3>
+          <p id="dossierText">NEXUS 的能量心脏。所有航线从这里校准，所有信号在此汇流。点击外围星体，解锁远征档案。</p>
+          <ul class="dossier__meta" id="dossierMeta">
+            <li>温度 <b>5772 K</b></li>
+            <li>半径 <b>1.00 R☉</b></li>
+            <li>状态 <b>稳定燃烧</b></li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="features" id="features">
+      <div class="section-head">
+        <p class="eyebrow">CAPABILITIES</p>
+        <h2>观测站能力矩阵</h2>
+        <p>四条主航道，覆盖感知、演算、沉浸与协同。</p>
+      </div>
+      <div class="cards">
+        <article class="card tilt">
+          <div class="card__icon">◈</div>
+          <h3>极光渲染核</h3>
+          <p>实时体积光与粒子场，把频谱数据翻译成可漫步的空间。</p>
+          <span class="card__tag">RENDER · 120FPS</span>
+        </article>
+        <article class="card tilt">
+          <div class="card__icon">◎</div>
+          <h3>量子星历</h3>
+          <p>毫秒级轨道推演，预测交会窗口与隐匿信号爆发。</p>
+          <span class="card__tag">ORBITAL AI</span>
+        </article>
+        <article class="card tilt">
+          <div class="card__icon">⌬</div>
+          <h3>触觉 HUD</h3>
+          <p>坐标、延迟、信号完整度始终悬浮在视野边缘，不打断沉浸。</p>
+          <span class="card__tag">INTERFACE</span>
+        </article>
+        <article class="card tilt">
+          <div class="card__icon">⬡</div>
+          <h3>多域协同</h3>
+          <p>跨节点共享星图标注，把一次观测变成一支远征。</p>
+          <span class="card__tag">SWARM LINK</span>
+        </article>
+      </div>
+    </section>
+
+    <section class="lab" id="lab">
+      <div class="section-head">
+        <p class="eyebrow">SIGNAL LAB</p>
+        <h2>频谱实验室</h2>
+        <p>移动指针扰动场。点击发射脉冲，空格切换波形模式。</p>
+      </div>
+      <div class="lab__wrap glass">
+        <canvas id="labCanvas"></canvas>
+        <div class="lab__hud">
+          <span>MODE <b id="labMode">AURORA</b></span>
+          <span>PULSE <b id="labPulse">IDLE</b></span>
+          <span>FREQ <b id="labFreq">440</b></span>
+        </div>
+        <div class="lab__keys">
+          <kbd>Click</kbd> 脉冲
+          <kbd>Space</kbd> 换模
+          <kbd>R</kbd> 重置
+        </div>
+      </div>
+    </section>
+
+    <section class="signal" id="signal">
+      <div class="signal__panel glass">
+        <p class="eyebrow">CLEARANCE</p>
+        <h2>申请你的专属航线</h2>
+        <p>留下呼号，观测站会在下一个窗口回传接入密钥。</p>
+        <form class="form" id="signalForm">
+          <label>
+            呼号
+            <input type="text" name="callsign" placeholder="例如：ORION-05" required maxlength="32" />
+          </label>
+          <label>
+            频段
+            <select name="band">
+              <option value="aurora">极光频段</option>
+              <option value="deep">深空频段</option>
+              <option value="quantum">量子密话</option>
+            </select>
+          </label>
+          <label class="form__full">
+            任务简报
+            <textarea name="brief" rows="3" placeholder="你想观测什么？" required></textarea>
+          </label>
+          <button class="btn btn--primary magnetic" type="submit">发送握手信号</button>
+        </form>
+        <p class="form__ok" id="formOk" hidden>握手成功。密钥将在 00:07:21 窗口下发。</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <span>NEXUS OBSERVATORY</span>
+    <span>COORD 31.23N 121.47E</span>
+    <span>© 2026</span>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
